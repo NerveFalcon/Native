@@ -9,6 +9,7 @@
     }
   ],
   "dependencies": {
+    "org.nuget.litedb": "5.0.21",
     "com.unity.ai.navigation": "2.0.5",
     "com.unity.collab-proxy": "2.7.1",
     "com.unity.ide.rider": "3.0.31",
