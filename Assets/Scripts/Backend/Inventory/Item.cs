@@ -14,5 +14,7 @@ namespace Inventory
 			this.name = name;
 			this.icon = icon;
 		}
+
+		public Item() { }
 	}
 }

@@ -17,7 +17,7 @@ namespace Inventory
 			if (existingItem != null)
 			{
 				// Если предмет уже есть, увеличиваем его количество
-				existingItem.count++;
+				existingItem.count += newItem.count;
 			}
 			else
 			{
@@ -31,21 +31,14 @@ namespace Inventory
 		{
 			var existingItem = items.Find(item => item.name == itemToRemove.name);
 			if (existingItem == null) return;
-			
-			existingItem.count--;
+
+			if (existingItem.count < itemToRemove.count) return;
+			existingItem.count -= itemToRemove.count;
 			if (existingItem.count <= 0)
 			{
 				items.Remove(existingItem);
 			}
 			OnItemChangedCallback?.Invoke();
-		}
-
-		public void DisplayInventory()
-		{
-			foreach (var item in items)
-			{
-				Debug.Log($"Item: {item.name}, Count: {item.count}");
-			}
 		}
 	}
 }
