@@ -8,17 +8,7 @@ namespace GameData
 		private GameDataManager gameDataManager;
 		private void Awake()
 		{
-			gameDataManager = GameDataManagerSingleton.Instance;
+			gameDataManager = GameDataManager.Instance;
 		}
 	}
-	public static class GameDataManagerSingleton
-	{
-		public static GameDataManager Instance { get; }
-		
-		static GameDataManagerSingleton()
-		{
-			Instance = new();
-		}
-	}
-
 }

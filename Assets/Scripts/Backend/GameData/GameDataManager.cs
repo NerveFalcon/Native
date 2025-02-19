@@ -11,11 +11,14 @@ namespace GameData
 {
 	public class GameDataManager : IDisposable
 	{
+		public static GameDataManager Instance { get; } = new();
+		
 		private LiteDatabase _db;
 		private readonly string _dbFile;
+		
+		private readonly ReaderWriterLockSlim _rwLock = new();
 		private readonly ConcurrentDictionary<Type, object> Cache = new();
 		private readonly ConcurrentDictionary<Type, bool> DirtyFlags = new();
-		private readonly ReaderWriterLockSlim _rwLock = new();
 		private string DbPath => Path.Combine(Application.persistentDataPath, _dbFile);
 
 		public GameDataManager(string dbFile)
