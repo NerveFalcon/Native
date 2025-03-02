@@ -6,10 +6,11 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(InputHandler))]
 public class FirstPersonController : MonoBehaviour
 {
-	public PlayerState state = PlayerState.Move;
+	public PlayerState state = PlayerState.Walk;
 	public float moveSpeed = 0.3f;
 	public float sprintCoefficient = 1.5f;
 	public float crouchCoefficient = 0.5f;
+	public Animator animator;
 	
 	public LayerMask GroundLayer = 1; 
 	public float jumpForce = 2f;
@@ -86,7 +87,7 @@ public class FirstPersonController : MonoBehaviour
 		    return;
 		}
 		
-		state = PlayerState.Move;
+		state = PlayerState.Walk;
 	}
 
 	private void JumpHandle()
@@ -99,18 +100,20 @@ public class FirstPersonController : MonoBehaviour
 
 	private void MoveHandle()
 	{
-		var speed = state switch
-		{
-			PlayerState.Move => moveSpeed,
-			PlayerState.Sprint => moveSpeed * sprintCoefficient,
-			PlayerState.Crouch => moveSpeed * crouchCoefficient,
-			_ => 0,
-		};
-		var moveX = input.move.x * speed;
-		var moveZ = input.move.y * speed;
-
-		var move = (transform.right * moveX + transform.forward * moveZ);
-		rigidBody.AddForce(move, ForceMode.Force);
+		animator.SetFloat("Vertical", input.move.y);
+		animator.SetInteger("State", (int)state);
+		// var speed = state switch
+		// {
+		// 	PlayerState.Move => moveSpeed,
+		// 	PlayerState.Sprint => moveSpeed * sprintCoefficient,
+		// 	PlayerState.Crouch => moveSpeed * crouchCoefficient,
+		// 	_ => 0,
+		// };
+		// var moveX = input.move.x * speed;
+		// var moveZ = input.move.y * speed;
+		//
+		// var move = (transform.right * moveX + transform.forward * moveZ);
+		// rigidBody.AddForce(move, ForceMode.Force);
 	}
 
 	private void CameraRotation()

@@ -1,6 +1,6 @@
 public enum PlayerState
 {
-	Move,
+	Walk,
 	Sprint,
 	Crouch,
 	InAir,
